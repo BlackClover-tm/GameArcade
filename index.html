@@ -1,55 +1,9 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>چت آنلاین</title>
-    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .hidden { display: none; }
-        .chat-box { width: 300px; height: 400px; overflow-y: auto; border: 1px solid #ccc; margin: auto; padding: 10px; }
-        .message { padding: 5px; margin: 5px; border-radius: 5px; }
-        .my-message { background: lightblue; text-align: right; }
-        .other-message { background: lightgray; text-align: left; }
-    </style>
-</head>
-<body>
-
-    <!-- فرم ورود -->
-    <div id="loginBox">
-        <h2>وارد شوید</h2>
-        <input type="text" id="usernameInput" placeholder="نام کاربری شما">
-        <button onclick="login()">ورود</button>
-    </div>
-
-    <!-- بخش چت -->
-    <div id="chatSection" class="hidden">
-        <h2>چت گروهی</h2>
-        <div class="chat-box" id="chatBox"></div>
-        <input type="text" id="messageInput" placeholder="پیام خود را بنویسید...">
-        <button onclick="sendMessage()">ارسال</button>
-    </div>
-
-    <script>
-        const socket = io();
-
-        // بررسی نام کاربری ذخیره‌شده
-        window.onload = function() {
-            let savedUsername = localStorage.getItem("username");
-            if (savedUsername) {
-                document.getElementById("loginBox").classList.add("hidden");
-                document.getElementById("chatSection").classList.remove("hidden");
-            }
-        };
-
-        // ورود کاربر
-        function login() {
-            let username = document.getElementById("usernameInput").value.trim();
-            if (username) {
+if (username && password) {
                 localStorage.setItem("username", username);
                 document.getElementById("loginBox").classList.add("hidden");
                 document.getElementById("chatSection").classList.remove("hidden");
+            } else {
+                alert("لطفاً نام کاربری و رمز عبور را وارد کنید!");
             }
         }
 
@@ -57,15 +11,27 @@
         function sendMessage() {
             let username = localStorage.getItem("username") || "مهمان";
             let message = document.getElementById("messageInput").value.trim();
+
             if (message) {
+                let chatBox = document.getElementById("chatBox");
+
+                // نمایش پیام خود کاربر
+                let myMessageDiv = document.createElement("div");
+                myMessageDiv.classList.add("message", "my-message");
+                myMessageDiv.textContent = username + ": " + message;
+                chatBox.appendChild(myMessageDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // ارسال پیام به بقیه
                 socket.emit("sendMessage", username + ": " + message);
                 document.getElementById("messageInput").value = "";
             }
         }
 
-        // دریافت پیام
+        // دریافت پیام و نمایش آن
         socket.on("receiveMessage", (message) => {
             let chatBox = document.getElementById("chatBox");
+
             let messageDiv = document.createElement("div");
             messageDiv.classList.add("message", "other-message");
             messageDiv.textContent = message;
