@@ -1,44 +1,67 @@
-if (username && password) {
-                localStorage.setItem("username", username);
-                document.getElementById("loginBox").classList.add("hidden");
-                document.getElementById("chatSection").classList.remove("hidden");
-            } else {
-                alert("لطفاً نام کاربری و رمز عبور را وارد کنید!");
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Countdown Timer</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #2f2f2f; /* طوسی تیره */
             }
-        }
 
-        // ارسال پیام
-        function sendMessage() {
-            let username = localStorage.getItem("username") || "مهمان";
-            let message = document.getElementById("messageInput").value.trim();
-
-            if (message) {
-                let chatBox = document.getElementById("chatBox");
-
-                // نمایش پیام خود کاربر
-                let myMessageDiv = document.createElement("div");
-                myMessageDiv.classList.add("message", "my-message");
-                myMessageDiv.textContent = username + ": " + message;
-                chatBox.appendChild(myMessageDiv);
-                chatBox.scrollTop = chatBox.scrollHeight;
-
-                // ارسال پیام به بقیه
-                socket.emit("sendMessage", username + ": " + message);
-                document.getElementById("messageInput").value = "";
+            #timer {
+                font-size: 4rem;
+                font-weight: bold;
+                color: #5c0099; /* بنفش تیره */
+                text-shadow: 0 0 10px #7e0dd1, 0 0 20px #7e0dd1; /* افکت درخشش */
+                animation: glow 1.5s infinite alternate; /* انیمیشن درخشش */
             }
-        }
 
-        // دریافت پیام و نمایش آن
-        socket.on("receiveMessage", (message) => {
-            let chatBox = document.getElementById("chatBox");
+            @keyframes glow {
+                from {
+                    text-shadow: 0 0 10px #5c0099, 0 0 20px #7e0dd1, 0 0 30px #7e0dd1;
+                }
+                to {
+                    text-shadow: 0 0 20px #7e0dd1, 0 0 30px #9d0edd, 0 0 40px #b00eff;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="timer">04:10:00:00</div>
 
-            let messageDiv = document.createElement("div");
-            messageDiv.classList.add("message", "other-message");
-            messageDiv.textContent = message;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        });
-    </script>
+        <script>
+            let totalSeconds = (4 * 24 * 60 * 60) + (10 * 60 * 60); // شروع از ۴ روز و ۱۰ ساعت
 
-</body>
-</html>
+            function updateTimer() {
+                if (totalSeconds <= 0) {
+                    document.getElementById('timer').textContent = "00:00:00:00";
+                    clearInterval(timerInterval); // توقف تایمر وقتی صفر شد
+                    return;
+                }
+
+                totalSeconds--;
+
+                const days = Math.floor(totalSeconds / (24 * 60 * 60));
+                const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+                const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+                const seconds = totalSeconds % 60;
+
+                const formattedDays = days.toString().padStart(2, '0');
+                const formattedHours = hours.toString().padStart(2, '0');
+                const formattedMinutes = minutes.toString().padStart(2, '0');
+                const formattedSeconds = seconds.toString().padStart(2, '0');
+
+                document.getElementById('timer').textContent = `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            }
+
+            const timerInterval = setInterval(updateTimer, 1000); // اجرا هر ثانیه
+        </script>
+    </body>
+    </html>
