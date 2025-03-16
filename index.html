@@ -1,11 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>پیام‌رسان ساده</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chat-container {
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .chat-box {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            max-width: 70%;
+        }
+        .my-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+        .other-message {
+            background-color: #e4e6eb;
+            align-self: flex-start;
+        }
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        .chat-input button {
+            padding: 10px 15px;
+            margin-left: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+
+    <div class="chat-container">
+        <div class="chat-header">پیام‌رسان ساده</div>
+        <div class="chat-box" id="chatBox">
+            <div class="message other-message">سلام! چطوری؟</div>
+            <div class="message my-message">سلام، خوبم. تو چطوری؟</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="پیام خود را بنویسید...">
+            <button onclick="sendMessage()">ارسال</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let input = document.getElementById("messageInput");
+            let message = input.value.trim();
+            if (message !== "") {
+                let chatBox = document.getElementById("chatBox");
+                let newMessage = document.createElement("div");
+                newMessage.classList.add("message", "my-message");
+                newMessage.textContent = message;
+                chatBox.appendChild(newMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                input.value = "";
+            }
+        }
+    </script>
+
 </body>
 </html>
