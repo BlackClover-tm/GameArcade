@@ -37,12 +37,30 @@
         <div id="timer">Loading...</div>
 
         <script>
-            let totalSeconds = (4 * 24 * 60 * 60) + (10 * 60 * 60); // شروع از ۴ روز و ۱۰ ساعت
+            let totalSeconds;
+
+            // دریافت زمان باقی‌مانده از سرور
+            async function fetchTime() {
+                const response = await fetch('/get_time');
+                const data = await response.json();
+                totalSeconds = data.remaining_time;
+                updateTimer();
+            }
+
+            // ارسال زمان به سرور
+            async function saveTime() {
+                await fetch('/update_time', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ remaining_time: totalSeconds })
+                });
+            }
 
             function updateTimer() {
                 if (totalSeconds <= 0) {
                     document.getElementById('timer').textContent = "00:00:00:00";
-                    clearInterval(timerInterval); // توقف تایمر وقتی صفر شد
                     return;
                 }
 
@@ -61,7 +79,15 @@
                 document.getElementById('timer').textContent = `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
             }
 
-            const timerInterval = setInterval(updateTimer, 1000); // اجرا هر ثانیه
+            // به‌روزرسانی تایمر هر ثانیه
+            setInterval(() => {
+                if (totalSeconds > 0) {
+                    updateTimer();
+                    saveTime(); // زمان را به سرور ارسال می‌کند
+                }
+            }, 1000);
+
+            fetchTime(); // دریافت مقدار اولیه از سرور
         </script>
     </body>
     </html>
