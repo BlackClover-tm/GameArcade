@@ -41,7 +41,7 @@
 
         async function fetchTime() {
             try {
-                const response = await fetch('/get_timer');
+                const response = await fetch('BlackClover-tm.github.io/GameArcade/get_timer');
                 const data = await response.json();
                 totalSeconds = data.remaining_time;
                 updateTimer();
