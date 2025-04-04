@@ -1,13 +1,94 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="fa">
 <head>
-  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pages</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #a9a9a9;
+      height: 100vh,
+      overflow: hidden;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #333;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    .menu-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+    }
+
+    .menu-icon div {
+      width: 100%;
+      height: 4px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    .bell-icon {
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #888;
+      font-size: 16px;
+    }
+
+    .navbar a.active {
+      color: white;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-  <h1>
-    Hello, World!
-  </h1>
+<div class="top-bar">
+  <div class="menu-icon">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <i class="fas fa-bell bell-icon"></i>
+</div>
+
+<div class="navbar">
+  <a href="#" class="active">Home</a>
+  <a href="#streams">Streams</a>
+  <a href="#games">Games</a>
+  <a href="#chat">Chat</a>
+</div>
+
 </body>
 </html>
