@@ -18,6 +18,15 @@
             font-family: 'Roboto', sans-serif;
         }
 
+        .alpha {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #ffffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+        }
+
         .panel {
             background-color: #1c1e21;
             width: 300px;
@@ -36,7 +45,7 @@
             color: #ffffff;
             margin: 0;
             font-size: 24px;
-            font-family: 'Press Start 2P', cursive; /* فونت گیم آرکید */
+            font-family: 'Press Start 2P', cursive;
         }
 
         .panel input {
@@ -63,13 +72,19 @@
             background-color: #4a2158;
         }
     </style>
+    <script>
+        function openNewPage() {
+            window.open('pages.html', '_blank');
+        }
+    </script>
 </head>
 <body>
+    <div class="alpha">Alpha 0.0.1</div>
     <div class="panel">
         <h1>Login</h1>
         <input type="text" placeholder="Username">
         <input type="password" placeholder="Password">
-        <button>Login with Guest</button>
+        <button onclick="openNewPage()">Login with Guest</button>
     </div>
 </body>
 </html>
