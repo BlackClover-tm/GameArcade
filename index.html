@@ -1,85 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Countdown Timer</title>
+    <title>Game Arcade</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #2f2f2f; /* طوسی تیره */
+            background-color: #2c2f33; /* طوسی تیره */
+            overflow: hidden;
         }
 
-        #timer {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #5c0099; /* بنفش تیره */
-            text-shadow: 0 0 10px #7e0dd1, 0 0 20px #7e0dd1;
-            animation: glow 1.5s infinite alternate;
+        .container {
+            text-align: center;
         }
 
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #5c0099, 0 0 20px #7e0dd1, 0 0 30px #7e0dd1;
+        .circle {
+            width: 20px;
+            height: 20px;
+            background-image: url('https://biaupload.com/do.php?imgf=org-a3999abb24ae1.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            margin: 0 auto;
+            animation: growAndSpin 2s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+        }
+
+        @keyframes growAndSpin {
+            0% {
+                width: 20px;
+                height: 20px;
+                transform: rotate(0deg);
             }
-            to {
-                text-shadow: 0 0 20px #7e0dd1, 0 0 30px #9d0edd, 0 0 40px #b00eff;
+            100% {
+                width: 200px;
+                height: 200px;
+                transform: rotate(720deg);
             }
+        }
+
+        .text {
+            margin-top: 20px;
+            font-size: 24px;
+            font-family: 'Trebuchet MS', sans-serif;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .char {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .game {
+            color: #9500ff;
+        }
+
+        .arcade {
+            color: #6203a6;
         }
     </style>
-</head>
-<body>
-    <div id="timer">Loading...</div>
-
     <script>
-        let totalSeconds;
-
-        async function fetchTime() {
-            try {
-                const response = await fetch('BlackClover-tm.github.io/GameArcade/get_timer');
-                const data = await response.json();
-                totalSeconds = data.remaining_time;
-                updateTimer();
-            } catch (error) {
-                console.error('Error fetching time:', error);
-                document.getElementById('timer').textContent = "Error loading timer.";
-            }
+        // هدایت به صفحه جدید پس از انیمیشن
+        function redirectToNewPage() {
+            setTimeout(() => {
+                window.location.href = "hello.html"; // آدرس صفحه جدید
+            }, 4000); // زمان انیمیشن لوگو و متن
         }
-
-        function updateTimer() {
-            if (totalSeconds <= 0) {
-                document.getElementById('timer').textContent = "00:00:00:00";
-                clearInterval(timerInterval);
-                return;
-            }
-
-            totalSeconds--;
-
-            const days = Math.floor(totalSeconds / (24 * 60 * 60));
-            const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
-            const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-            const seconds = totalSeconds % 60;
-
-            const formattedDays = days.toString().padStart(2, '0');
-            const formattedHours = hours.toString().padStart(2, '0');
-            const formattedMinutes = minutes.toString().padStart(2, '0');
-            const formattedSeconds = seconds.toString().padStart(2, '0');
-
-            document.getElementById('timer').textContent = `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-        }
-
-        const timerInterval = setInterval(() => {
-            if (totalSeconds > 0) {
-                updateTimer();
-            }
-        }, 1000);
-
-        fetchTime(); // دریافت زمان اولیه
     </script>
+</head>
+<body onload="redirectToNewPage()">
+    <div class="container">
+        <div class="circle"></div>
+        <div class="text">
+            <span class="char game" style="animation-delay: 2.1s;">G</span>
+            <span class="char game" style="animation-delay: 2.2s;">A</span>
+            <span class="char game" style="animation-delay: 2.3s;">M</span>
+            <span class="char game" style="animation-delay: 2.4s;">E</span>
+            <span class="char arcade" style="animation-delay: 2.6s;">A</span>
+            <span class="char arcade" style="animation-delay: 2.7s;">R</span>
+            <span class="char arcade" style="animation-delay: 2.8s;">C</span>
+            <span class="char arcade" style="animation-delay: 2.9s;">A</span>
+            <span class="char arcade" style="animation-delay: 3s;">D</span>
+            <span class="char arcade" style="animation-delay: 3.1s;">E</span>
+        </div>
+    </div>
 </body>
 </html>
