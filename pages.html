@@ -33,6 +33,7 @@
     .menu-icon {
       font-size: 24px;
       margin-left: 20px;
+      cursor: pointer;
     }
 
     .notification-icon {
@@ -40,6 +41,42 @@
       margin-right: 10px;
       color: white;
       cursor: pointer;
+    }
+
+    .menu-panel {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 240px;
+      background-color: #444;
+      color: white;
+      display: none;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 10px 10px;
+    }
+
+    .menu-panel a {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px 15px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .menu-panel a:hover {
+      background-color: #333;
+    }
+
+    .menu-panel img {
+      width: 25px;
+      height: 25px;
+      border-radius: 5px;
     }
 
     .navbar {
@@ -85,7 +122,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-left: 15px;
     }
 
     .profile-circle {
@@ -96,7 +132,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #bbb;
     }
 
     .profile-circle img {
@@ -133,8 +168,15 @@
 </head>
 <body>
   <div class="topbar">
-    <div class="menu-icon">☰</div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
     <i class="fas fa-bell notification-icon"></i>
+  </div>
+
+  <div class="menu-panel" id="menuPanel">
+    <a href="update_logs.html">Update logs</a>
+    <a href="https://t.me/BlaackCloverrs" target="_blank">
+      <img src="https://biaupload.com/do.php?imgf=org-29f4e859fab51.jpg" alt="Telegram Logo"> Join us on telegram <!-- لینک به تلگرام -->
+    </a>
   </div>
 
   <div class="post-panel">
@@ -156,5 +198,16 @@
     <a href="#">Streams</a>
     <a href="#">Chat</a>
   </div>
+
+  <script>
+    function toggleMenu() {
+      const menuPanel = document.getElementById('menuPanel');
+      if (menuPanel.style.display === 'none' || menuPanel.style.display === '') {
+        menuPanel.style.display = 'flex';
+      } else {
+        menuPanel.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
