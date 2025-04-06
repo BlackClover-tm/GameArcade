@@ -1,105 +1,57 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Arcade</title>
+    <title>Word Saver</title>
     <style>
         body {
-            margin: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #2c2f33;
-            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
         }
-
         .container {
             text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
-        .circle {
-            width: 20px;
-            height: 20px;
-            background-image: url('https://biaupload.com/do.php?imgf=org-a3999abb24ae1.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
-            margin: 0 auto;
-            animation: growAndSpin 2s cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+        input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            margin: 10px 0;
+            font-size: 16px;
         }
-
-        @keyframes growAndSpin {
-            0% {
-                width: 20px;
-                height: 20px;
-                transform: rotate(0deg);
-            }
-            100% {
-                width: 200px;
-                height: 200px;
-                transform: rotate(720deg);
-            }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
         }
-
-        .text {
-            margin-top: 20px;
-            font-size: 24px;
-            font-family: 'Trebuchet MS', sans-serif;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .char {
-            opacity: 0;
-            transform: translateX(-50px);
-            animation: slideIn 1s ease-out forwards;
-        }
-
-        @keyframes slideIn {
-            0% {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .game {
-            color: #9500ff;
-        }
-
-        .arcade {
-            color: #6203a6;
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
-    <script>
-        function redirectToNewPage() {
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 4000);
-        }
-    </script>
 </head>
-<body onload="redirectToNewPage()">
+<body>
     <div class="container">
-        <div class="circle"></div>
-        <div class="text">
-            <span class="char game" style="animation-delay: 2.1s;">G</span>
-            <span class="char game" style="animation-delay: 2.2s;">A</span>
-            <span class="char game" style="animation-delay: 2.3s;">M</span>
-            <span class="char game" style="animation-delay: 2.4s;">E</span>
-            <span class="char arcade" style="animation-delay: 2.6s;">A</span>
-            <span class="char arcade" style="animation-delay: 2.7s;">R</span>
-            <span class="char arcade" style="animation-delay: 2.8s;">C</span>
-            <span class="char arcade" style="animation-delay: 2.9s;">A</span>
-            <span class="char arcade" style="animation-delay: 3s;">D</span>
-            <span class="char arcade" style="animation-delay: 3.1s;">E</span>
-        </div>
+        <h1>Word Saver</h1>
+        <form action="/save" method="POST">
+            <input type="text" name="word" placeholder="Enter a word" required>
+            <button type="submit">Save</button>
+        </form>
+        <form action="/show" method="GET">
+            <button type="submit">Show Database</button>
+        </form>
     </div>
 </body>
 </html>
