@@ -3,62 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ذخیره کلمات</title>
+    <title>سایت ساده</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-        }
-        .container {
             text-align: center;
-            background: #fff;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 50px auto;
             padding: 20px;
+            max-width: 400px;
+            background: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0 }
-        .container input[type="text"] {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
             padding: 10px;
-            margin: 10px 0;
-            width: 80%;
-            border: 1px solid #ccc;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
             border-radius: 4px;
         }
-        .container button {
-            padding: 10px 20px;
-            background-color: #4caf50;
+
+        button {
+            background-color: #007BFF;
             color: white;
+            padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
-        .container button:hover {
-            background-color: #45a049;
-        }
-        .container ul {
-            padding: 0;
-            list-style-type: none;
-        }
-        .container li {
-            margin: 5px 0;
-            background-color: #eee;
-            padding: 8px;
-            border-radius: 4px;
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <form action="tist.php" method="post">
-            <input type="text" name="word" placeholder="کلمه وارد کنید..." required>
-            <button type="submit">ذخیره</button>
+        <h1>به سایت ساده خوش آمدید!</h1>
+        <form action="process.php" method="POST">
+            <label for="name">نام:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="message">پیام:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">ارسال</button>
         </form>
-        <hr>
-        <h3>کلمات ذخیره شده:</h3>
-        <?php include 'tist.php'; ?>
     </div>
 </body>
 </html>
