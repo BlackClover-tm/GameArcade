@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
     $stmt = $db->prepare("INSERT INTO words (word) VALUES (:word)");
     $stmt->bindParam(':word', $word);
     $stmt->execute();
-    echo "Word saved successfully! <a href='/'>Go back</a>";
+    echo "Word saved successfully! <a href='index.html'>Go back</a>";
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['show'])) {
     // نمایش داده‌های ذخیره‌شده در دیتابیس
     $result = $db->query("SELECT word FROM words");
@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
     foreach ($result as $row) {
         echo "<p>" . htmlspecialchars($row['word']) . "</p>";
     }
-    echo "<a href='/'>Go back</a>";
+    echo "<a href='index.html'>Go back</a>";
 } else {
-    // نمایش فرم اصلی
-    echo file_get_contents('index.html');
+    // در صورت درخواست نامعتبر
+    echo "Invalid Request. <a href='index.html'>Go back</a>";
 }
 ?>
