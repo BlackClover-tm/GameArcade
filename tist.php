@@ -1,27 +1,21 @@
 <?php
 // اتصال به دیتابیس SQLite
-$db = new PDO('sqlite:words.db');
+$db = new SQLite3('words.db');
 
-// ایجاد جدول اگر وجود ندارد
+// ساخت جدول در دیتابیس در صورت عدم وجود
 $db->exec("CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT)");
 
+// ذخیره کلمه در دیتابیس
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
-    // ذخیره کلمه در دیتابیس
-    $word = $_POST['word'];
-    $stmt = $db->prepare("INSERT INTO words (word) VALUES (:word)");
-    $stmt->bindParam(':word', $word);
-    $stmt->execute();
-    echo "Word saved successfully! <a href='index.html'>Go back</a>";
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['show'])) {
-    // نمایش داده‌های ذخیره‌شده در دیتابیس
-    $result = $db->query("SELECT word FROM words");
-    echo "<h1>Words in Database:</h1>";
-    foreach ($result as $row) {
-        echo "<p>" . htmlspecialchars($row['word']) . "</p>";
-    }
-    echo "<a href='index.html'>Go back</a>";
-} else {
-    // در صورت درخواست نامعتبر
-    echo "Invalid Request. <a href='index.html'>Go back</a>";
+    $word = htmlspecialchars($_POST['word']);
+    $db->exec("INSERT INTO words (word) VALUES ('$word')");
 }
+
+// نمایش کلمات ذخیره شده
+$result = $db->query("SELECT word FROM words");
+echo "<ul>";
+while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+    echo "<li>" . htmlspecialchars($row['word']) . "</li>";
+}
+echo "</ul>";
 ?>
